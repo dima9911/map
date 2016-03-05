@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+  <head>
+    <title>JQVMap - Russia Map</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="jqvmap/css/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="jqvmap/js/jquery.vmap.js" type="text/javascript"></script>
+    <script src="jqvmap/js/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/animate.css">
+	  
+<script type="text/javascript">
+	function tsvJSON(tsv){
+ 
+  var lines=tsv.split("\n");
+ 
+  var result = [];
+ 
+  var headers=lines[0].split("\t");
+ 
+  for(var i=1;i<lines.length;i++){
+ 
+	  var obj = {};
+	  var currentline=lines[i].split("\t");
+ 
+	  for(var j=0;j<headers.length;j++){
+		  obj[headers[j]] = currentline[j];
+	  }
+ 
+	  result.push(obj);
+ 
+  }
+  
+  return result; //JavaScript object
+ // return JSON.stringify(result); //JSON
+}
+</script>
+
+
+	  <script type="text/javascript">
+
+$(document).ready(function () {
+
+var region = ["401", "811", "814" , "815", "495", "rk", "481", "483", "471", "484", "486", "861", "877", "878", "866", "872"];
+
+function send1(i) 
+{ 
+ $.ajax({
+            type: "POST",
+            data: { 
+                        primer: "http://mediametrics.ru/rating/ru/"+ region[i] + "/online.tsv", 
+                
+            },
+            url: "/script.php",
+   
+            success: function (data) {
+
+            
+				data1= JSON.parse(data);  
+
+				data2 =  tsvJSON(data1);
+
+				//console.log(data2[0]['URL']);
+
+			//	document.body.appendChild("<a id='r_" + region[i] + "' class='tooltips' href='../''></a>");
+
+				if (data2[0]['Title'] != null)
+				{
+				$('body').append("<a id='r_" + region[i] + "' class='tooltips animated bounceIn' href='../''></a>");
+				$('body').append("<span id='t_" + region[i] + "' class='tooltips wave2'></span>");
+				 $('body').append("<span id='t_" + region[i] + "' class='tooltips wave'></span>");
+				$('body').append("<span id='t_" + region[i] + "' class='tooltips dot'></span>");
+
+				$("#r_" + region[i]).text(data2[0]['Title']);
+				$("#r_" + region[i]).attr("href", "http://www."+data2[0]['URL']);
+
+				}
+
+				if (i<region.length-1)
+				{
+				send1(i+1);
+				}
+                
+            }
+        });
+}
+
+function send(i) 
+{ 
+ $.ajax({
+            type: "POST",
+            data: { 
+                        primer: "http://mediametrics.ru/rating/ru/"+ region[i] + "/online.tsv", 
+                
+            },
+            url: "/script.php",
+   
+            success: function (data) {
+
+            
+				data1= JSON.parse(data);  
+
+				data2 =  tsvJSON(data1);
+
+				//console.log(data2[0]['URL']);
+
+			//	document.body.appendChild("<a id='r_" + region[i] + "' class='tooltips' href='../''></a>");
+
+				if (data2[0]['Title'] != null)
+				{
+				$('body').append("<a id='r_" + region[i] + "' class='tooltips animated bounceIn' href='../''></a>");
+				$('body').append("<span id='t_" + region[i] + "' class='tooltips wave2'></span>");
+				 $('body').append("<span id='t_" + region[i] + "' class='tooltips wave'></span>");
+				$('body').append("<span id='t_" + region[i] + "' class='tooltips dot'></span>");
+
+				$("#r_" + region[i]).text(data2[0]['Title']);
+				$("#r_" + region[i]).attr("href", "http://www."+data2[0]['URL']);
+
+				}
+
+				if (i<region.length-1)
+				{
+				send(i+1);
+				}
+				else
+				{
+					 setTimeout(function (){
+
+					 		for (var j = 0; j <= region.length - 1; j++) {
+						
+						$("#r_" + region[j] + "").addClass("animated bounceOut");
+						$("#t_" + region[j] + "").addClass("hidden");
+						
+
+
+					}
+
+					 },3000);
+
+
+
+				}
+                
+            }
+        });
+}
+
+send(0);
+
+    });
+
+
+
+  </script>
+
+    <style type="text/css">
+
+
+    .hidden {
+    	display: none !important;
+    }
+
+    	
+    	#r_811,#t_811  {
+    	          top: 189px;
+    left: 275px;
+    		   }
+
+    	#r_401,#t_401 {
+    		top: 151px;
+    left: 223px;
+
+
+			   }
+
+
+		#r_814,#t_814 {
+
+			 top: 177px;
+    left: 356px;
+			   }
+
+		#r_815,#t_815 {
+
+			  top: 130px;
+    left: 417px;
+			   }
+
+			   #r_495,#t_495 {
+       top: 240px;
+    left: 297px;
+			   }
+
+
+			   #r_rk,#t_rk {
+			   	    top: 286px;
+    left: 158px;
+			   }
+
+			   #r_481,#t_481 {
+			   	    top: 216px;
+    left: 268px;
+			   }
+
+			   #r_483,#t_483
+			   {
+			    top: 237px;
+    left: 245px;
+
+			   }
+
+			   #r_471,#t_471 {
+			  top: 261px;
+    left: 242px;
+			   }
+
+
+			   #r_484,#t_484 {
+			      top: 239px;
+    left: 271px;
+			   }
+
+			   #r_486,#t_486 {
+			 top: 260px;
+    left: 258px;
+			   }
+
+			   #r_861,#t_861 {
+			   	top: 322px;
+    left: 192px;
+			   }
+
+			   #r_877,#t_877 {
+			   top: 343px;
+    left: 191px;
+			   }
+
+			   #r_878,#t_878 {
+			    top: 363px;
+    left: 193px;
+			   }
+
+			   #r_866,#t_866 {
+			 top: 374px;
+    left: 199px;
+			   }
+
+			   #r_872,#t_872 {
+			     top: 419px;
+    left: 215px;
+			   }
+
+    	.tooltips {
+
+    		position: absolute;
+    		white-space: nowrap; /* Запрещаем перенос строк */
+    		width: 300px;
+    		overflow: hidden !important;
+    		border-radius: 10px;
+    		text-overflow: ellipsis; /* Добавляем многоточие */
+    		padding: 2px;
+    	background: rgba(255, 255, 0, 0.9);
+    		color: black !important;
+    		text-decoration: none;
+
+    	}
+    		    
+    	.tooltips:hover {
+    	
+    		z-index: 9999;
+    	}
+
+    	.dot{
+	margin: auto auto;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+
+.centraldot{
+	width: 6px;
+	height: 6px;
+	background: rgba(255,0,0,1);
+	border-radius: 30px;
+	position: absolute;
+	left:147px;
+	top:147px;
+	animation: animationDotCentral linear 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-iteration-count: infinite;
+}
+
+
+.wave{
+	width: 30px;
+	height: 30px;
+	background: rgba(255,0,0,0.4);
+	border-radius: 200px;
+	position: absolute;
+	left:20px;
+	top:20px;
+	opacity: 0;
+	animation: animationWave cubic-bezier(0,.54,.53,1) 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-delay:0.9s;
+  animation-iteration-count: infinite;
+}
+
+.wave2{
+	width: 30px;
+	height: 30px;
+	background: rgba(255,0,0,0.4);
+	border-radius: 200px;
+	position: absolute;
+	left:20px;
+	top:20px;
+	opacity: 0;
+	animation: animationWave cubic-bezier(0,.54,.53,1) 3s;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards;
+  animation-delay:1.07s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes animationDotCentral{
+	
+	0% {
+		transform:  scale(0) ;
+		opacity: 0;
+	}
+ 
+	5% {
+		transform:  scale(2) ;
+	}
+  
+	10% {
+		transform:  scale(0.90) ;
+		opacity: 1;
+	}
+
+
+	11% {
+		transform:  scale(1.50) ;
+	}
+
+	12% {
+		transform:  scale(1.00) ;
+	}
+ 
+	28% {
+		background: rgba(32,150,243,1);
+	}
+  
+	29% {
+		background: rgba(255,255,255,1);
+	}
+
+	31% {
+		background: rgba(32,150,243,1);
+	}
+
+	33% {
+		background: rgba(255,255,255,1);
+	}
+
+	35% {
+		background: rgba(32,150,243,1);
+	}
+
+	90%{
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes animationWave{
+	0% {
+	    opacity: 0;
+	    transform:  scale(0.00);
+	}
+
+	1% {
+		opacity: 1;
+	}
+
+	10% {
+		background: rgba(255,0,243,0.4);
+	}
+
+	100% {
+	 	transform:  scale(1) ;
+	 	background: rgba(255,0,243,0.0);
+	 }
+}
+
+
+#vmap, body {
+background: rgb(3, 39, 216) !important;
+}
+    	
+    </style>
+	<script type="text/javascript">
+	// Массив всех объектов	
+	var data_obj = {
+		'no': ['Объект 1', 'Объект 2'],
+		'kr': ['Объект 3', 'Объект 4', 'Объект 5'],
+		'ir': ['Объект 6', 'Объект 7', 'Объект 8']
+	};
+	
+	colorRegion = '#17C426'; // Цвет всех регионов
+	focusRegion = '#FF9900'; // Цвет подсветки регионов при наведении на объекты из списка
+	selectRegion = '#0A4C82'; // Цвет изначально подсвеченных регионов
+	
+	highlighted_states = {};
+	
+	
+	$(document).ready(function() {
+		$('#vmap').vectorMap({
+		    map: 'russia',
+		    backgroundColor: '#ffffff',
+			borderColor: '#ffffff',
+			borderWidth: 2,
+		    color: colorRegion,
+			colors: highlighted_states,			
+		    hoverOpacity: 0.7,		    
+		    enableZoom: false,
+		    showTooltip: false,			
+			
+			// Отображаем объекты если они есть
+			onLabelShow: function(event, label, code){
+				name = '<strong>'+label.text()+'</strong><br>';				
+				if(data_obj[code]){
+					list_obj = '<ul>';
+					for(ob in data_obj[code]){					
+						list_obj += '<li>'+data_obj[code][ob]+'</li>';
+					}
+					list_obj += '</ul>';
+				}else{
+					list_obj = '';
+				}				
+				label.html(name + list_obj);				
+				list_obj = '';				
+			},			
+			// Клик по региону
+			onRegionClick: function(element, code, region){
+				alert(region+' - ' +code);
+			}			
+		});		
+		
+	});
+	// Выводим список объектов из массива
+	$(document).ready(function() {
+		for(region in data_obj){
+			for(obj in data_obj[region]){
+				$('.list-object').append('<li><a href="'+selectRegion+'" id="'+region+'" class="focus-region">'+data_obj[region][obj]+' ('+region+')</a></li>');
+			}
+		}
+	});
+	
+	// Подсветка регионов при наведении на объекты
+	$(function(){
+		$('.focus-region').mouseover(function(){			
+			iso = $(this).prop('id');
+			fregion = {};
+			fregion[iso] = focusRegion;
+			$('#vmap').vectorMap('set', 'colors', fregion);			
+		});
+		$('.focus-region').mouseout(function(){
+			c = $(this).attr('href');			
+			cl = (c === '#')?colorRegion:c;
+			iso = $(this).prop('id');
+			fregion = {};
+			fregion[iso] = cl;
+			$('#vmap').vectorMap('set', 'colors', fregion);
+		});
+	});	
+	</script>
+  </head>
+  <body>
+    <div id="vmap" style="width: 1300px; height: 600px; "></div>
+	<!-- <a id="r_401" class="tooltips" href="../"></a>
+	<a id="r_501" class="tooltips" href="../"></a>
+	<a id="r_391" class="tooltips" href="../"></a> -->
+  </body>
+
+
+
+</html>
