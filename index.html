@@ -40,7 +40,7 @@
 
 $(document).ready(function () {
 
-var region = ["401", "811", "814" , "815", "495", "rk", "481", "483", "471", "484", "486", "861", "877", "878", "866", "872"];
+var region = ["401", "811", "814" , "815", "495", "rk", "483", "471", "486", "861", "877", "878", "866", "872"];
 
 function send1(i) 
 { 
@@ -79,10 +79,30 @@ function send1(i)
 				{
 				send1(i+1);
 				}
+				// else
+				// {
+				// 	 setTimeout(function (){
+
+				// 	 		for (var j = 0; j <= region.length - 1; j++) {
+						
+				// 		$("#r_" + region[j] + "").addClass("animated bounceOut");
+				// 		//$("#t_" + region[j] + "").addClass("hidden");
+
+
+
+
+				// 	}
+
+				// 	 },3000);
+
+
+
+				// }
                 
             }
         });
 }
+
 
 function send(i) 
 { 
@@ -128,11 +148,15 @@ function send(i)
 					 		for (var j = 0; j <= region.length - 1; j++) {
 						
 						$("#r_" + region[j] + "").addClass("animated bounceOut");
-						$("#t_" + region[j] + "").addClass("hidden");
-						
+						//$("#t_" + region[j] + "").addClass("hidden");
+
+
 
 
 					}
+
+					region = ["818", "484", "481", "812"];
+						send1(0);
 
 					 },3000);
 
@@ -159,6 +183,15 @@ send(0);
     	display: none !important;
     }
 
+    #r_812,#t_812 {
+    	    top: 197px;
+    left: 305px;
+    }
+
+    #r_818,#t_818 {
+    	   top: 209px;
+    left: 389px;
+    }
     	
     	#r_811,#t_811  {
     	          top: 189px;
